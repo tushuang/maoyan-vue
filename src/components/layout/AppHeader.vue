@@ -12,19 +12,26 @@ export default {
         }
     },
     methods:{
-       
+       changeTitle(_to){
+            switch(_to.name){
+                case 'detail': this.title = _to.params.title;break;
+                case 'cinema': this.title = '影院';break;
+                default: this.title = '猫眼电影';
+            }
+       }
     },
     created(){
-       
-    this.$router.beforeEach((to, from, next) => {
-        let _to = to || this.$route
-        switch(_to.name){
-            case 'detail': this.title = _to.params.title;break;
-            case 'cinema': this.title = '影院';break;
-            default: this.title = '猫眼电影';
-        }
-        next()
+        console.log(this.$route.params,'11111')
+        this.$router.beforeEach((to, from, next) => {
+            let _to = to || this.$route
+            this.changeTitle(_to)
+            next()
         })
+        
+        this.$bus.$on('changeTitle',()=>{
+            this.changeTitle(this.$route)
+        })
+        
     }
 }
 </script>
@@ -38,6 +45,7 @@ export default {
         position: fixed;
         top: 0px;
         left: 0px;
+        z-index: 999;
        .title{
            color: white;
            font-size: .48rem;

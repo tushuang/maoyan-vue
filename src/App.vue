@@ -2,25 +2,28 @@
   <div class="app-contnet">
     <app-header></app-header>
     <div class="banner-content">
-      <router-view></router-view>
+      <!-- <keep-alive> -->
+        <router-view></router-view>
+      <!-- </keep-alive> -->
+      
     </div>
     
-    <app-footer></app-footer>
+    <!-- <app-footer></app-footer> -->
   </div>
 </template>
 
 <script>
 
 import AppHeader from '@c/layout/AppHeader'
-import AppFooter from '@c/layout/AppFooter'
+// import AppFooter from '@c/layout/AppFooter'
 
 
 
 export default {
   name:'app',
   components:{
-    AppHeader,
-    AppFooter
+    AppHeader
+    // AppFooter
   }
 }
 </script>
@@ -35,7 +38,7 @@ export default {
   }
   .banner-content{
     // flex-grow: 0;
-    margin-top: 1.293333rem;
+    margin-top: 1.36rem;
     // height: 17.786667rem;
     // margin-bottom: 1.421333rem;
   }

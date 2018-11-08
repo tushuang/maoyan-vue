@@ -8,6 +8,8 @@ import '@styles/main.scss'
 import '@libs/flexible'
 
 import '@libs'
+import bus from '@utils/emit'
+
 
 // import router from '@router' 
 import router from './router/index'

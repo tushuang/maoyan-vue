@@ -51,7 +51,13 @@ export default {
     methods:{
         getId(){
             this.id = this.$route.params.id
+        },
+        handleImg(imgUrl){
+            let arr = imgUrl.split('/')
+            return 'https://p0.meituan.net/128.180/movie/'+arr[arr.length-1]
+
         }
+
     },
     created(){
         this.getId()
@@ -61,7 +67,12 @@ export default {
         )
         .then(res=>{
             this.info = res.detailMovie
+            this.$route.params.title = this.info.nm
+            this.bg = this.handleImg(this.info.img)
+            this.styleObject.background = 'url('+ this.bg +') no-repeat'
+            this.$bus.$emit('changeTitle')
         })
+
     }
     
 }
@@ -74,7 +85,7 @@ export default {
             height: 5.013333rem;
             width: 100%;
             position: relative;
-
+            overflow: hidden;
             .movie-filter{
                 height: 5.013333rem;
                 width: 100%;
@@ -96,6 +107,8 @@ export default {
                 padding: 19px 30px 19px 15px;
                 box-sizing: border-box;
                 height: 5.013333rem;
+                align-items: center;
+                width: 100%;
                 span{
                     overflow:hidden;
                     text-overflow:ellipsis;
@@ -116,6 +129,7 @@ export default {
                     display: flex;
                     flex-direction: column;
                     margin-left: .333333rem;
+                    flex-grow: 1;
                     .movies-title{
                         font-size: 20px;
                         margin-top: 2px;
@@ -153,9 +167,11 @@ export default {
                 .item-right{
                     width: .266667rem;
                     height: .4rem;
+                    margin-left: .533333rem;
                     span{
                         i{
                             font-size: .533333rem;
+                            color: white;
                         }
                     }
                 }

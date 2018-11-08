@@ -14,6 +14,13 @@ module.exports = {
                 pathRewrite:{
                     '^/my':''
                 }
+            },
+            '/mz': {
+                target: 'https://m.maizuo.com/',
+                changeOrigin: true,
+                pathRewrite: {
+                  '^/mz': ''
+                }
             }
         }
     },

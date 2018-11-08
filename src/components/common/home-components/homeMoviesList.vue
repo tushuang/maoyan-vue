@@ -1,65 +1,102 @@
 <template>
-    <div>
-        <ul class="movies-list">
-            <li  class="list-item"  
-            @click = go(item.id,item.nm)
-            v-for = "item in moviesList"
-            :key = 'item.id'
-            >
-                <div class="item-left">
-                    <img :src = "item.img | handleImg" :alt = "item.nm">
-                </div>
-                <div class="item-center">
-                    <span class="movies-title">{{item.nm}}</span>
-                    <span class="movies-grade">
-                        观众评
-                        <span class="grade-num">{{item.sc }}</span>
-                    </span>
-                    <span class="movies-stars">
-                       主演: {{item.star}}
-                    </span>
-                    <span class="movies-session">{{item.showInfo}}</span>
-                </div>
-                <div class="item-right">
-                    <span v-if="item.globalReleased" class="buy-ticket">购票</span>
-                     <span v-else class="presell-ticket">预售</span>
-                </div>
-            </li>
-        </ul>
+        <div class="scroll-wrapper" >
+            <ul  class="movies-list">
+                <li  class="list-item"  
+                @click = go(item.id,item.nm)
+                v-for = "item in moviesList"
+                :key = 'item.id'
+                >
+                    <div class="item-left">
+                        <img :src = "item.img | handleImg" :alt = "item.nm">
+                    </div>
+                    <div class="item-center">
+                        <span class="movies-title">{{item.nm}}</span>
+                        <span v-if="item.globalReleased" class="movies-grade">
+                            观众评
+                            <span class="grade-num">{{item.sc }}</span>
+                        </span>
+                        <span v-else class="movies-grade">
+                            <span class="grade-num">{{item.wish }}</span>
+                            想看
+                        </span>
+                        <span class="movies-stars">
+                        主演: {{item.star}}
+                        </span>
+                        <span class="movies-session">{{item.showInfo}}</span>
+                    </div>
+                    <div class="item-right">
+                        <span v-if="item.globalReleased" class="buy-ticket">购票</span>
+                        <span v-else class="presell-ticket">预售</span>
+                    </div>
+                </li>
+            </ul>
     </div>
+    
 </template>
 
 <script>
 //https://p0.meituan.net/128.180/movie/
+// import scroll from '@utils/scroll'
 export default {
     data(){
         return {
-            moviesList:[]
+            moviesList:[],
+            url:'movieOnInfoList',
+            date:''
         }
     },
+    props:['params'],
     methods:{
         go(_id,_title){
             // 应该在跳转的时候 存入标题
-            this.$router.push({name:'detail',params:{id:_id,title:_title}})
+            
+            if(!this.params){
+                this.$router.push({name:'detail',params:{id:_id,title:_title}})
+            }else{
+                
+            }
         }
     },
-    beforeCreate(){
-  
+    watch:{
+        date(){
+            this.$emit('update:day', this.date)
+        }
+    },
+    created(){
+        let _url = this.params?this.params.url:'' || this.url
         this.$http({
-             url:'/my/ajax/movieOnInfoList'
+             url:'/my/ajax/'+ _url +'?token=',
+             params:{
+                 ci:this.params?this.params.ci:'',
+                 limit:this.params?this.params.limit:''
+             }
             }
         )
         .then(res=>{
-            this.moviesList = res.movieList
+            if(_url == 'movieOnInfoList'){
+                this.moviesList = res.movieList
+            }else{
+                this.moviesList = res.coming
+                this.date = res.coming[0].comingTitle
+            }
+            
         })
-    }
+        
+    },
+    // mounted (){
+    //     scroll({
+    //         el:this.$refs.scrollItem
+    //     })
+    // }
 }
 </script>
 
 <style lang="scss">
+    .scroll-wrapper{
+        height: 17.786667rem;
+    }
     .movies-list{
         min-height: 3.04rem;
-        margin-top: 1.786667rem;
         margin-bottom: 1.293333rem;
         .list-item{
             display: flex;

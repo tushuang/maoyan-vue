@@ -1,19 +1,28 @@
 <template>
-    <nav class="home-nav">
-        <ul>
-            <li class="home-site">
-                北京
-                <i class="iconfont icon-jiantou-copy-copy"></i>
-            </li>
-            <li class="active-switch">
-                <span class="hot-item">正在热映</span>
-                <span class="hot-item">即将上映</span>
-            </li>
-            <li class="home-search">
-                <i class="iconfont icon-artboard9-copy"></i>
-            </li>
-        </ul>
-    </nav>
+    <div>
+        <nav class="home-nav">
+            <ul>
+                <li class="home-site">
+                    北京
+                    <i class="iconfont icon-jiantou-copy-copy"></i>
+                </li>
+                <li class="active-switch">
+                    <router-link 
+                    tag = 'span' 
+                    :to = info.path 
+                    v-for = "info in infos" 
+                    :key = "info.id" 
+                    :class = "(type==info.path)?className:''" >
+                    {{info.title}}
+                    </router-link>
+                </li>
+                <li class="home-search">
+                    <i class="iconfont icon-artboard9-copy"></i>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
 </template>
 
 <script>
@@ -21,7 +30,23 @@
 
 
 export default {
-    
+    data(){
+        return {
+            infos:[
+                {id:1, path:'/home/MovieOnInfoList',title:'正在热映'},
+                {id:2, path:'/home/comingList',title:'即将上映'}
+            ],
+            type:'/home/MovieOnInfoList',
+            className:'active'
+        }
+    },
+    created(){
+        this.$router.beforeEach((to, from, next) => {
+            this.type = to.path;
+            next()
+        })
+        // this.type = this.$route.fullPath;
+    }
 }
 </script>
 
@@ -34,6 +59,7 @@ export default {
         top:1.293333rem;
         left: 0px;
         background: white;
+        z-index: 999;
         ul{
             display: flex;
             justify-content: space-between;
@@ -55,9 +81,11 @@ export default {
                 display: flex;
                 justify-content: space-around;
                 text-align: center;
-                .hot-item{
+                span{
                     width: 2.133333rem;
                     margin: 0 .32rem;
+                }
+                .active{
                     border-bottom: 2px #ef4238 solid;
                     color: #ef4238
                 }

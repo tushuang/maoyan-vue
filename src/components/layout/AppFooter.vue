@@ -1,6 +1,6 @@
 <template>
-    <footer class="footer">
-        <router-link  :to = "info.path" active-class="active" v-for="info in infos" :key = "info.id" class="footer-item">
+    <footer  class="footer">
+        <router-link tag="div"  :to = '{name:info.name}' active-class="active" v-for="info in infos" :key = "info.id" class="footer-item">
             <i :class = "info.iconfont"></i>
             <span>{{info.title}}</span>
         </router-link>
@@ -11,22 +11,10 @@
 export default {
     data(){
         return{
-           infos:[ {id:1,iconfont:"iconfont icon-74",title:'电影', path:'/home'},
-            {id:2,iconfont:"iconfont icon-yingyuanA",title:'影院', path:'/cinema'},
-            {id:3,iconfont:"iconfont icon-wode",title:'我的', path:'/my'}]
+           infos:[ {id:1,iconfont:"iconfont icon-74",title:'电影', name:'home'},
+            {id:2,iconfont:"iconfont icon-yingyuanA",title:'影院', name:'cinema'},
+            {id:3,iconfont:"iconfont icon-wode",title:'我的', name:'profile'}]
         }
-    },
-    methods:{
-        //@click = go(info.path)
-        go(path){
-            this.$router.push(path)
-            console.log(this)
-        }
-    },
-    created(){
-        this.$router.beforeEach((to,from,next)=>{
-            next()
-        })
     }
 }
 </script>
