@@ -44,9 +44,8 @@ export default {
 
 <style lang="scss">
     .auth{
-        height: 17.786667rem;
+    //  height: 100%;
         width: 100%;
-        background: #f8f8f8;
     }
     .auth-top{
         position: relative;

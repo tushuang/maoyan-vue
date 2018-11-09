@@ -1,5 +1,5 @@
 <template>
-        <div class="scroll-wrapper" >
+        <!-- <div class="scroll-wrapper" > -->
             <ul  class="movies-list">
                 <li  class="list-item"  
                 @click = go(item.id,item.nm)
@@ -30,7 +30,7 @@
                     </div>
                 </li>
             </ul>
-    </div>
+    <!-- </div> -->
     
 </template>
 
@@ -92,20 +92,20 @@ export default {
 </script>
 
 <style lang="scss">
-    .scroll-wrapper{
-        height: 17.786667rem;
-    }
+    
     .movies-list{
         min-height: 3.04rem;
         margin-bottom: 1.293333rem;
+        // margin-top: 200px;
         .list-item{
             display: flex;
             justify-content: space-between;
-            margin-top: .32rem;
+            padding-top: .32rem;
             padding-bottom: .32rem;
             overflow: hidden;
             border-bottom: 1px solid #f5f5f5;
             box-sizing: border-box;
+            background: white;
             .item-left{
                width: 1.706667rem;
                height: 2.4rem;

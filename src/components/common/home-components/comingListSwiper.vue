@@ -149,7 +149,6 @@ export default {
             margin: 0;
             font-size: .373333rem;
             color: #333;
-            margin-bottom: .32rem;
         }
     }
     .comming-list{
@@ -158,6 +157,7 @@ export default {
             margin: 0;
             font-size: .373333rem;
             color: #333;
+            background: white;
         }
     }
     .movies-list{

@@ -26,21 +26,29 @@ const routes = [
             },
             {
               path: 'comingList',
+              name:'home', 
               component: comingList
             }
-        ]
+        ] 
     },
     { path:'/cinema', name:'cinema', component: cinemaComponent},
-    { path:'/detail/:id', name:'detail', component: detailComponent},
+    { 
+        path:'/detail/:id', 
+        name:'detail', 
+        component: detailComponent,
+        props: true
+    },
     { path:'/profile', name:'profile', component: myPage},
     { path:'/login', name:'login', component: loginPage,
         children: [
             {
             path: 'account',
+            name:'login',
             component: accountForm
             },
             {
             path: 'phone',
+            name:'login',
             component: phoneForm
             }
         ]

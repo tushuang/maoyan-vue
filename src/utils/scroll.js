@@ -8,5 +8,4 @@ const scroll = ({el})=>{
         click:true
     }) 
 }
-console.log( scroll )
 export default scroll

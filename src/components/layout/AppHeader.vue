@@ -1,5 +1,9 @@
 <template>
     <header class="app-header">
+        <span v-if="isShow" @click="goBack" class="left-arrow">
+            <i class="iconfont icon-jiantou1"></i>
+        </span>
+        
         <span class="title"> {{title?title:''}} </span>
     </header>
 </template>
@@ -8,20 +12,26 @@
 export default {
     data(){
         return {
-            title:'猫眼电影'
+            title:'猫眼电影',
+            isShow:false
         }
     },
     methods:{
        changeTitle(_to){
+           console.log(_to,'ok')
             switch(_to.name){
-                case 'detail': this.title = _to.params.title;break;
-                case 'cinema': this.title = '影院';break;
-                default: this.title = '猫眼电影';
+                case 'detail': this.title = _to.params.title;this.isShow=true;break;
+                case 'cinema': this.title = '影院';this.isShow=false;break;
+                case 'login': this.title = '登录';this.isShow=true;break;
+                case 'profile':this.title = "个人中心"; this.isShow = true; break;
+                default: this.title = '猫眼电影';this.isShow=false;
             }
+       },
+       goBack(){
+           this.$router.go(-1)
        }
     },
     created(){
-        console.log(this.$route.params,'11111')
         this.$router.beforeEach((to, from, next) => {
             let _to = to || this.$route
             this.changeTitle(_to)
@@ -50,6 +60,13 @@ export default {
            color: white;
            font-size: .48rem;
            line-height:1.36rem;
+       }
+       .left-arrow{
+           float: left;
+           line-height: 1.36rem;
+           padding-left: .266667rem;
+           color: white;
+           font-weight: bold;
        }
     }
 </style>

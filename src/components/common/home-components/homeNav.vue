@@ -45,7 +45,8 @@ export default {
             this.type = to.path;
             next()
         })
-        // this.type = this.$route.fullPath;
+        
+        this.type = this.$route.path
     }
 }
 </script>

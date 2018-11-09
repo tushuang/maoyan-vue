@@ -38,9 +38,9 @@ export default {
   }
   .banner-content{
     // flex-grow: 0;
-    margin-top: 1.36rem;
-    // height: 17.786667rem;
-    // margin-bottom: 1.421333rem;
+      margin-top: 1.36rem;
+      height: 100%;
+      background: #f8f8f8;
   }
 </style>
 
