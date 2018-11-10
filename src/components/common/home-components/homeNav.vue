@@ -2,10 +2,10 @@
     <div>
         <nav class="home-nav">
             <ul>
-                <li class="home-site">
+                <router-link tag="li" :to="{name:'citys'}" class="home-site">
                     北京
                     <i class="iconfont icon-jiantou-copy-copy"></i>
-                </li>
+                </router-link>
                 <li class="active-switch">
                     <router-link 
                     tag = 'span' 

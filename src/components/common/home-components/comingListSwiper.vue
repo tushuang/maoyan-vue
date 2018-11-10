@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="coming-list-warp">
         <div class="recent-expect">
             <p class="recent-title">近期最受期待</p>
             <swiper :options="swiperOption" ref="mySwiper">
@@ -65,12 +65,16 @@ export default {
             }
         }).then((res)=>{
             this.movieLists = res.coming
+            // console.log(res)
         })
     }
 }
 </script>
 
 <style lang="scss">
+    .coming-list-warp{
+        min-height: 16rem;
+    }
     .swiper-container{
         width: 9.066667rem;
         margin: 0;

@@ -111,6 +111,7 @@ export default {
         top: 1.333333rem;
         // z-index: 999;
         height: 2.533333rem;
+        background-color: #fff;
         .show-time-box::-webkit-scrollbar {display:none}
         .show-time-box{
             width: 100%;

@@ -1,5 +1,5 @@
 <template>
-    <header class="app-header">
+    <header v-if="headerIsShow" class="app-header">
         <span v-if="isShow" @click="goBack" class="left-arrow">
             <i class="iconfont icon-jiantou1"></i>
         </span>
@@ -13,7 +13,8 @@ export default {
     data(){
         return {
             title:'猫眼电影',
-            isShow:false
+            isShow:false,
+            headerIsShow:true
         }
     },
     methods:{
@@ -37,7 +38,11 @@ export default {
             this.changeTitle(_to)
             next()
         })
-        
+        if(this.$route.name == 'citys'){
+            this.headerIsShow = false
+        }else{
+            this.headerIsShow = true
+        }
         this.$bus.$on('changeTitle',()=>{
             this.changeTitle(this.$route)
         })

@@ -68,10 +68,11 @@ export default {
 <style lang="scss">
     .cinema-msg-wrap{
         padding: 13px 15px 13px 0;
-        margin-left: 15px;
+        padding-left: 15px;
         display: flex;
         flex-direction: column;
         border-bottom: 1px solid #efefef;
+        background-color: #fff;
         .cinema-msg:nth-child(1){
             display: flex;
             align-items: center;

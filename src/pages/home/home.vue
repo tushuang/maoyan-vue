@@ -1,11 +1,11 @@
 <template>
     <div class="content">
         <home-nav class="home-nav"></home-nav>
-        <div id="movie-list" ref='scrollItem'>
+        <!-- <div id="movie-list" ref='scrollItem'> -->
             <keep-alive>
                 <router-view ></router-view>
             </keep-alive>
-        </div>
+        <!-- </div> -->
         
         <app-footer></app-footer>
     </div>
@@ -14,44 +14,39 @@
 <script>
 import homeNav from '@c/common/home-components/homeNav'
 import AppFooter from '@c/layout/AppFooter'
-import scroll from '@utils/scroll'
+// import scroll from '@utils/scroll'
 
 export default {
     name:'home',
     components:{
         homeNav,
-        AppFooter
+        AppFooter,
     },
-    // beforeRouteEnter(){
-    //     console.log('biubiubiubiu')
-    //     scroll({
-    //         el:this.$refs.scrollItem
-    //     })
-    // },
-    mounted(){
-        // console.log(this.$refs,'biubiu')
-        scroll({
-            el:this.$refs.scrollItem
-        })
-        this.$router.beforeEach((to, from, next) => {
+    methods:{
+        loadScroll(){
             scroll({
                 el:this.$refs.scrollItem
-            })
-            next()
-        })
+            })  
+        }
+    },
+    mounted(){
+        this.loadScroll()
+    },
+    watch: {
+        '$route.path': {  // 监听路径 变化时dom没有加载完
+            handler() {
+                this.$nextTick(() => { 
+                    this.loadScroll()
+                })
+            }
+        }
     }
-   
 }
 </script>
 
 <style lang="scss">
     .content{
         display: flex;
-    }
-    #movie-list{
-        margin-top:1.066667rem;
-        flex-grow: 1;
-        flex-shrink: 1;
-        height: 17.786667rem;
+        margin-top: 1.2rem;
     }
 </style>

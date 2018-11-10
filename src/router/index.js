@@ -11,6 +11,7 @@ import loginPage from '@pages/my/login'
 import accountForm from '@c/common/login-type/account'
 import phoneForm from '@c/common/login-type/phone'
 import notFound from '@pages/notFound/notFound'
+import citysList from '@pages/citys/citys'
 
 const routes = [
     { path: '/', redirect: '/home/MovieOnInfoList' }, // 配置重定向
@@ -39,6 +40,7 @@ const routes = [
         props: true
     },
     { path:'/profile', name:'profile', component: myPage},
+    { path:'/citys', name:'citys', component: citysList},
     { path:'/login', name:'login', component: loginPage,
         children: [
             {
