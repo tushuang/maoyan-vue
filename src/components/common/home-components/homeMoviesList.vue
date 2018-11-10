@@ -13,13 +13,9 @@
             </div>
             <div class="item-center">
                 <span class="movies-title">{{item.nm}}</span>
-                <span v-if="item.globalReleased" class="movies-grade">
+                <span  class="movies-grade">
                     观众评
                     <span class="grade-num">{{item.sc }}</span>
-                </span>
-                <span v-else class="movies-grade">
-                    <span class="grade-num">{{item.wish }}</span>
-                    想看
                 </span>
                 <span class="movies-stars">
                 主演: {{item.star}}
@@ -27,8 +23,7 @@
                 <span class="movies-session">{{item.showInfo}}</span>
             </div>
             <div class="item-right">
-                <span v-if="item.globalReleased" class="buy-ticket">购票</span>
-                <span v-else class="presell-ticket">预售</span>
+                <span  class="buy-ticket">购票</span>
             </div>
         </li>
     </ul>
@@ -51,16 +46,10 @@ export default {
             addClass:'movies-warp'
         }
     },
-    props:['params'],
     methods:{
         go(_id,_title){
             // 应该在跳转的时候 存入标题
-            
-            if(!this.params){
-                this.$router.push({name:'detail',params:{id:_id,title:_title}})
-            }else{
-                
-            }
+            this.$router.push({name:'detail',params:{id:_id,title:_title}})
         },
         loadMore(){
             // 再次发送请求
@@ -83,8 +72,6 @@ export default {
                     duration: 3000
                 });
                 console.log('没有更多数据了')
-                this.allLoaded = true;// 若数据已全部获取完毕
-                this.$refs.loadmore.onBottomLoaded();
             }
             
         },
@@ -95,32 +82,15 @@ export default {
             })  
         }
     },
-    watch:{
-        date(){
-            this.$emit('update:day', this.date)
-        }
-    },
     created(){
-        let _url = this.params?this.params.url:'' || this.url
         this.$http({
-             url:'/my/ajax/'+ _url +'?token=',
-             params:{
-                 ci:this.params?this.params.ci:'',
-                 limit:this.params?this.params.limit:''
-             }
+             url:'/my/ajax/movieOnInfoList?token=',
             }
         )
         .then(res=>{
-            if(_url == 'movieOnInfoList'){
-                this.moviesList = res.movieList
-                this.ids = res.movieIds
-                this.loadScroll()
-            }else{
-                this.moviesList = res.coming
-                this.date = res.coming[0].comingTitle
-                
-            }
-            
+            this.moviesList = res.movieList
+            this.ids = res.movieIds
+            this.loadScroll()
         })
         
     }

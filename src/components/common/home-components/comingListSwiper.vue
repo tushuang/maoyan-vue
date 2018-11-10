@@ -1,4 +1,6 @@
 <template>
+<div class="loadmore">
+<mt-loadmore :bottom-method="parentMethod"  :bottom-all-loaded="allLoaded" ref="loadmore"> 
     <div class="coming-list-warp">
         <div class="recent-expect">
             <p class="recent-title">近期最受期待</p>
@@ -21,35 +23,37 @@
                 </swiper-slide>
             </swiper>
         </div>
-        <div class="comming-list">
-            <p  class="comming-list-day">{{day}}</p>
-            <movie-list :day.sync = 'day' :params = 'params'></movie-list>
-        </div>
+        <coming-list ref="comingList"></coming-list>
     </div>
-    
+</mt-loadmore> 
+</div>
+   
 </template>
 
 <script>
-import MovieList from '@c/common/home-components/homeMoviesList'
+import { Loadmore } from 'mint-ui';
+import comingList from '@c/common/home-components/comingList'
 export default {
     components:{
-        MovieList
+        [Loadmore.name]:Loadmore,
+        comingList
     },
     data(){
         return {
-            params:{
-                url:'comingList',
-                ci:'1',
-                limit:'10'
-            },
-            day:'',
             swiperOption: {
                 slidesPerView : 3.5,
                 spaceBetween : 10
             },
-            movieLists:null
-            
+            movieLists:null,
+            allLoaded:false
+            // 定义一个title
         }
+    },
+    methods:{
+        parentMethod() {
+        this.$refs.comingList.loadMore()
+        this.$refs.loadmore.onBottomLoaded();
+      }
     },
     computed: {
         swiper() {
@@ -65,13 +69,19 @@ export default {
             }
         }).then((res)=>{
             this.movieLists = res.coming
-            // console.log(res)
         })
     }
 }
 </script>
 
 <style lang="scss">
+    .coming-list{
+        margin-bottom: 0px;
+    }
+    .loadmore{
+        overflow: scroll;
+        height: 100%;
+    }
     .coming-list-warp{
         min-height: 16rem;
     }
