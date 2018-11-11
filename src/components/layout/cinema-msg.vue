@@ -1,7 +1,7 @@
 <template>
     <div class="cinema-loadmore">
-        <mt-loadmore :bottom-method="loadMore" :bottom-all-loaded="allLoaded" ref="loadmore">
-            <div  v-for = "info in infos" :key="info.id" class="cinema-msg-wrap">
+        <!-- <mt-loadmore :bottom-method="getMore" :bottom-all-loaded="allLoaded" ref="loadmore"> -->
+            <div @click="go(info.id,info.nm,info.addr)"  v-for = "info in infos" :key="info.id" class="cinema-msg-wrap">
                 <span class="cinema-msg">
                     <h3 class="cinema-name">{{info.nm}}</h3> 
                     <b class="cinema-price">{{info.sellPrice}}<em>元起</em></b>  
@@ -24,7 +24,7 @@
                     <em class="section">近期场次：{{info.showTimes}}</em>
                 </span>
             </div>
-        </mt-loadmore>
+        <!-- </mt-loadmore> -->
     </div>
     
 </template>
@@ -43,9 +43,13 @@ export default {
     },
     props:['infos','getCinemaList'],
     methods:{
-        loadMore(){
+        getMore(){
             this.getCinemaList()
+            this.allLoaded = false
             this.$refs.loadmore.onBottomLoaded();
+        },
+        go(id,title,addr){   // 编程式导航
+            this.$router.push({path:'/cinemaDetail',query:{cinemaId:id,title:title,addr:addr}})
         }
     }
 }  
@@ -55,7 +59,7 @@ export default {
 <style lang="scss">
     .cinema-loadmore{
         overflow: scroll;
-        height: 16rem;
+        height: 100%;
     }
     .cinema-msg-wrap{
         padding: 13px 15px 13px 0;

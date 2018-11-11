@@ -10,7 +10,7 @@
             </div>
             <select-info></select-info>
         </div>  
-        <cinema-msg ref="cinemaMsg" :getCinemaList = 'getCinemaList' :infos = 'infos'></cinema-msg> 
+        <cinema-msg :getCinemaList = 'getCinemaList' :infos = 'infos'></cinema-msg> 
     </div>
 </template>
 
@@ -22,20 +22,21 @@ export default {
         cinemaMsg,
         selectInfo
     },
-    // 写方法调用接口 穿info给组件 cinemaMsg
+    // 写方法调用接口 穿info给组件
     data(){
         return{
             infos:[],
-            time:0
+           
         }
     },
+    time:0,
     methods:{
         getCinemaList(){
             this.$http({
                 url:'/my/ajax/cinemaList',
                 params:{
                     day: 2018-11-11,
-                    offset: 20*this.time,
+                    offset: 20,
                     limit: 20,
                     districtId: -1,
                     lineId: -1,
@@ -50,36 +51,11 @@ export default {
                     cityId: 1,
                 }
             }).then((res)=>{
-                this.infos =this.infos.concat(res.cinemas) 
-                console.log(this.infos)
-                this.time++
+                this.infos = this.infos.concat(res.cinemas) 
+            }).catch((err)=>{
+                console.log(err)
             })
-        },
-        // getMoreMsg(){
-        //     this.time++
-        //     this.$http({
-        //         url:'/my/ajax/cinemaList',
-        //         params:{
-        //             day: 2018-11-11,
-        //             offset: 20*this.$options.time,
-        //             limit: 20,
-        //             districtId: -1,
-        //             lineId: -1,
-        //             hallType: -1,
-        //             brandId: -1,
-        //             serviceId: -1,
-        //             areaId: -1,
-        //             stationId: -1,
-        //             item:'' ,
-        //             updateShowDay: false,
-        //             reqId: 1541908739617,
-        //             cityId: 1,
-        //         }
-        //     }).then((res)=>{
-        //         this.infos += res.cinemas
-        //     })
-        //      this.$refs.loadmore.onBottomLoaded();
-        // }
+        }
     },
     created(){ 
         this.getCinemaList()

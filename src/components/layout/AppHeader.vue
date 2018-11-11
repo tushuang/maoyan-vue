@@ -21,9 +21,11 @@ export default {
        changeTitle(_to){
             switch(_to.name){
                 case 'detail': this.title = _to.params.title;this.isShow=true;break;
+                case 'cinemaDetail': this.title = _to.query.title;this.isShow=true;break;
                 case 'cinema': this.title = '影院';this.isShow=false;break;
                 case 'login': this.title = '登录';this.isShow=true;break;
                 case 'profile':this.title = "个人中心"; this.isShow = true; break;
+                case 'order':this.title = "我的电影订单"; this.isShow = true; break;
                 default: this.title = '猫眼电影';this.isShow=false;
             }
        },
@@ -44,6 +46,10 @@ export default {
         }
         this.$bus.$on('changeTitle',()=>{
             this.changeTitle(this.$route)
+        })
+        this.$bus.$on('getTitle',(title)=>{
+            this.title = title
+            this.isShow = true
         })
         
     }

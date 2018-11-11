@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import homeComponent from '@pages/home/home'
 import cinemaComponent from '@pages/cinema/cinema'
+import cinemaDetail from '@pages/cinemaDetail/cinemaDetail'
 import detailComponent from '@pages/detail/detail'
 import homeMoviesList from '@c/common/home-components/homeMoviesList'
 import comingList from '@c/common/home-components/homeComingList'
@@ -12,7 +13,7 @@ import accountForm from '@c/common/login-type/account'
 import phoneForm from '@c/common/login-type/phone'
 import notFound from '@pages/notFound/notFound'
 import citysList from '@pages/citys/citys'
-
+import order from '@pages/order/order'
 const routes = [
     { path: '/', redirect: '/home/MovieOnInfoList' }, // 配置重定向
     { 
@@ -33,6 +34,7 @@ const routes = [
         ] 
     },
     { path:'/cinema', name:'cinema', component: cinemaComponent},
+    { path:'/cinemaDetail', name:'cinemaDetail', component: cinemaDetail},
     { 
         path:'/detail/:id', 
         name:'detail', 
@@ -40,6 +42,7 @@ const routes = [
         props: true
     },
     { path:'/profile', name:'profile', component: myPage},
+    { path:'/order', name:'order', component: order},
     { path:'/citys', name:'citys', component: citysList},
     { path:'/login', name:'login', component: loginPage,
         children: [
