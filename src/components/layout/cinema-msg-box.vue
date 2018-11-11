@@ -16,20 +16,7 @@
             </ul>
         </div>
         
-        <div class="cinema-nav">
-            <span class="nav-item">
-                全城
-                <i class="iconfont icon-jiantou-copy-copy"></i>
-            </span>
-            <span class="nav-item">
-                品牌
-                <i class="iconfont icon-jiantou-copy-copy"></i>
-            </span>
-            <span class="nav-item nav-item-right">
-                特色
-                <i class="iconfont icon-jiantou-copy-copy"></i>
-            </span>
-        </div>
+        <select-info></select-info>
         
     </div>
         <cinema-msg :infos = 'infos'></cinema-msg>
@@ -38,10 +25,12 @@
 </template>
 
 <script>
+import selectInfo from '@c/layout/selectInfo'
 import cinemaMsg from '@c/layout/cinema-msg'
 export default {
     components:{
-        cinemaMsg
+        cinemaMsg,
+        selectInfo
     },
     data(){
         return{
@@ -86,7 +75,7 @@ export default {
                     reqId: 1541676027715,
                     cityId: 1
                 }
-            }).then((res)=>{
+            }).then((res)=>{ 
                 this.showTimes = res.showDays.dates
                 this.infos = res.cinemas
             })
@@ -110,7 +99,7 @@ export default {
         position:sticky;
         top: 1.333333rem;
         // z-index: 999;
-        height: 2.533333rem;
+        height: 2.266667rem;
         background-color: #fff;
         .show-time-box::-webkit-scrollbar {display:none}
         .show-time-box{
@@ -137,35 +126,6 @@ export default {
                     color: #e54847;
                     border-bottom: 2px solid #e54847;
                 }
-            }
-        }
-        .cinema-nav{
-            height: 1.066667rem;
-            display: flex;
-            border-bottom: 1px solid #efefef;
-            background: white;
-            .nav-item{
-                flex: 1;
-                text-align: center;
-                line-height: 1.066667rem;
-                font-size: .373333rem;
-                color: #666;
-                position: relative;
-                i{
-                    font-size: .213333rem;
-                }
-            }
-            .nav-item::after{
-                content: '';
-                display: block;
-                width: 1px;
-                position: absolute;
-                right: 0px;background: #efefef;
-                top: .16rem;
-                bottom: .16rem;
-            }
-            .nav-item-right:after{
-                display: none;
             }
         }
     }

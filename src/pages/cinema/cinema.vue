@@ -1,15 +1,17 @@
 <template>
     <div>
-        app-cinema
+        <cinema-list></cinema-list>
         <app-footer></app-footer>
     </div>
 </template>
 
 <script>
+import cinemaList from '@c/common/cinema/cinemaList'
 import AppFooter from '@c/layout/AppFooter'
 export default {
     components:{
-        AppFooter
+        AppFooter,
+        cinemaList
     }
 }
 </script>

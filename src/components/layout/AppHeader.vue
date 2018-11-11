@@ -19,7 +19,6 @@ export default {
     },
     methods:{
        changeTitle(_to){
-           console.log(_to,'ok')
             switch(_to.name){
                 case 'detail': this.title = _to.params.title;this.isShow=true;break;
                 case 'cinema': this.title = '影院';this.isShow=false;break;

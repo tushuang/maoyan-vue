@@ -136,23 +136,23 @@ export default {
                     white-space:nowrap;
                 }
                 .movies-title{
-                    font-size: 17px;
+                    font-size: .453333rem;
                     color: #333;
                     font-weight: 700;
-                    padding-right: 5px;
+                    padding-right: .133333rem;
                 }
                 .movies-grade{
                     margin-top: .186667rem;
-                    font-size: 13px;
+                    font-size: .346667rem;
                     color: #666;
                     .grade-num{
                         font-weight: 700;
                         color: #faaf00;
-                        font-size: 15px;
+                        font-size: .4rem;
                     }
                 }
                 .movies-stars,.movies-session{
-                    font-size: 13px;
+                    font-size: .346667rem;
                     margin-top: .16rem;
                     color: #666;
                 }
@@ -169,14 +169,14 @@ export default {
                     display: block;
                     width: 1.253333rem;
                     height: .72rem;
-                    line-height: 28px;
+                    line-height: .746667rem;
                     text-align: center;
                     box-sizing: border-box;
                     background-color: #f03d37;
                     color: #fff;
-                    border-radius: 4px;
+                    border-radius: .106667rem;
                     white-space: nowrap;
-                    font-size: 13px;
+                    font-size: .346667rem;
                     cursor: pointer;
                 }
                 .presell-ticket{

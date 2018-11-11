@@ -87,7 +87,7 @@ export default {
                     margin: 0 .32rem;
                 }
                 .active{
-                    border-bottom: 2px #ef4238 solid;
+                    border-bottom: .053333rem #ef4238 solid;
                     color: #ef4238
                 }
             }

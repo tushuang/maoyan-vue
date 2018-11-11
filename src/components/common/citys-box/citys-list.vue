@@ -36,7 +36,6 @@ export default {
         this.$http({
             url: '/my/dianying/cities.json'
         }).then((res)=>{
-            console.log(res)
             this.citys = res.cts
         })
         

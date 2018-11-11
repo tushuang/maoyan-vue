@@ -53,6 +53,7 @@ export default {
         parentMethod() {
         this.$refs.comingList.loadMore()
         this.$refs.loadmore.onBottomLoaded();
+        console.log('okok')
       }
     },
     computed: {
@@ -107,7 +108,7 @@ export default {
                 line-height: .746667rem;
                 background: rgba(61,63,71,.6);
                 text-align: center;
-                border-bottom-right-radius: 10px;
+                border-bottom-right-radius: .266667rem;
                 height: .746667rem;
                 .hreat-img{
                     display: inline-block;
@@ -130,15 +131,15 @@ export default {
                     bottom: .053333rem;
                     left: .106667rem;
                     color: #faaf00;
-                    font-size: 11px;
+                    font-size: .293333rem;
                     font-weight: 600;
                 }
             }
             
         }
         .movie-nm{
-            margin: 0 0 3px;
-            font-size: 13px;
+            margin: 0 0 .08rem;
+            font-size: .346667rem;
             color: #222;
             overflow:hidden;
             text-overflow:ellipsis;
@@ -146,7 +147,7 @@ export default {
             height: .453333rem;
         }
         .show-time{
-            font-size: 12px;
+            font-size: .32rem;
             color: #999;
         }
     }
