@@ -72,8 +72,8 @@ section.swiper-actor {
     text-align: center;
     height: 3.786667rem;
     img {
-        width: 80px;
-        height: 90px;
+        width: 120px;
+        height: 120px;
     }
     p.name {
       color: black;
