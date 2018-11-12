@@ -1,10 +1,15 @@
 <template>
     <div>
         <div class="cinema-swiper">
+            <div class="movie-filter"></div>
+            <div class="detail-bg"></div>
             <swiper class="swiper-contain" :options="swiperOption" ref="mySwiper">
             <!-- slides -->
                 <swiper-slide v-for="i in 10" :key='i' class="swiper-item">
-                    <img width="65" height="95" src="http://p0.meituan.net/148.208/movie/2721b55eac3ca107bad2af0e18592003431446.jpg" alt="">
+                   <div class="img-box">
+                       <img width="65" height="95" src="http://p0.meituan.net/148.208/movie/2721b55eac3ca107bad2af0e18592003431446.jpg" alt="">
+                   </div>
+                   <span class="tarngle"></span>
                 </swiper-slide>
             </swiper>
             
@@ -40,25 +45,73 @@ export default {
 
     .cinema-swiper{
         height: 3.6rem;
-        .swiper-contain{
+        position: relative;
+        overflow: hidden;
+        .detail-bg{
+            background: url(http://p0.meituan.net/148.208/movie/2721b55eac3ca107bad2af0e18592003431446.jpg) no-repeat;
+            background-size: cover;
+            filter : blur(15px);
+            opacity: .55;
             height: 100%;
-            line-height: 3.6rem;
+            width: 100%;
+        }
+        .movie-filter{
+            height: 100%;
+            width: 100%;
+            background-color: #40454d;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: .55;
+        }
+        .swiper-container{
+            height: 100%;
+            line-height: 4rem;
             overflow: hidden;
             width: 100%;
+            position:absolute;
+            top: 0;
+            left: 0;
+            .swiper-wrapper{
+                line-height: 4rem;
+            }
             .swiper-item{
                 width: 1.733333rem!important;
                 height: 2.533333rem;
+                line-height: 3.6rem;
+                // background: url(http://p0.meituan.net/148.208/movie/2721b55eac3ca107bad2af0e18592003431446.jpg) no-repeat;
+                margin-top: .533333rem;
+                background-size: 100%;
+                img{
+                    display: block;
+                }
             }
             .swiper-slide-active{
-                width: 2.133333rem!important;
-                border: .053333rem solid white;
-                height: 3.013333rem!important;
-                // margin-top: .266667rem;
-                img{
-                    height: 3.013333rem!important;
-                    width: 2.13333rem;
-                    
+                 width: 2.133333rem!important;
+                height: 3.573333rem!important;
+                margin-top: .266667rem;
+                .img-box{
+                    border: .053333rem solid white;
+                    position: relative;
+                    img{
+                        width: 2.133333rem!important;
+                        height: 3.013333rem!important;
+                        // display: block;
+                    }
                 }
+                .img-box::after{
+                    content: "";
+                    position: absolute;
+                    bottom: -6px;
+                    left: 50%;
+                    -webkit-transform: translateX(-50%);
+                    transform: translateX(-50%);
+                    width: .266667rem;
+                    height: .133333rem;
+                    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjMwODIyNEEwNTkwRDExRTZBNkMwOTE1NDA0RjA5MDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjMwODIyNEExNTkwRDExRTZBNkMwOTE1NDA0RjA5MDA3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MzA4MjI0OUU1OTBEMTFFNkE2QzA5MTU0MDRGMDkwMDciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MzA4MjI0OUY1OTBEMTFFNkE2QzA5MTU0MDRGMDkwMDciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7kjYk3AAAAVUlEQVR42qzMMQ7AIAwEwSvy8P25EwokZNkYCFcgCu/IzLB7Q9+jS2gz1MG/KN0ZwVOU0fDgLorvI3AVJWozsELJuhmYocyaCvQo1f2jeiT/cK8AAwBzvH2t7aaajQAAAABJRU5ErkJggg==) no-repeat;
+                    background-size: contain;
+                }
+                
             }
         }
         
