@@ -2,6 +2,7 @@
     <div>
          <div
         v-for = "item in comingList"
+        @click="go(item.id,item.nm)"
         :key = 'item.id'
         class="comming-list">
             <p v-if="changeTitle(item.comingTitle)" class="comming-list-day">{{item.comingTitle}}</p>
@@ -72,7 +73,11 @@ export default {
                 this.$options.title = _title
                 return true
             }
-        }
+        },
+        go(_id,_title){
+            // 应该在跳转的时候 存入标题
+            this.$router.push({name:'filmIntro',params:{id:_id,title:_title}})
+        },
     },
     created() {
         this.$http({

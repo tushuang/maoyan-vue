@@ -5,8 +5,8 @@
         <div class="recent-expect">
             <p class="recent-title">近期最受期待</p>
             <swiper :options="swiperOption" ref="mySwiper">
-                <swiper-slide v-if="movieLists" v-for="item in movieLists" :key='item.id'>
-                    <div class="swiper-item">
+                <swiper-slide v-if="movieLists"   v-for="item in movieLists" :key='item.id'>
+                    <div class="swiper-item" @click="go(item.id,item.nm)">
                         <div class="img-box">
                            <img width="85" height="115" :src="item.img | handleImg" alt="item.nm"> 
                            <div class="hreat-bg">
@@ -53,7 +53,12 @@ export default {
         parentMethod() {
         this.$refs.comingList.loadMore()
         this.$refs.loadmore.onBottomLoaded();
-      }
+      },
+    go(_id,_title){
+            // 应该在跳转的时候 存入标题
+            console.log("dd")
+            this.$router.push({name:'filmIntro',params:{id:_id,title:_title}})
+    },
     },
     computed: {
         swiper() {

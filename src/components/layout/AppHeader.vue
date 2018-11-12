@@ -22,6 +22,7 @@ export default {
            console.log(_to,'ok')
             switch(_to.name){
                 case 'detail': this.title = _to.params.title;this.isShow=true;break;
+                case 'filmIntro': this.title = _to.params.title;this.isShow=true;break;
                 case 'cinema': this.title = '影院';this.isShow=false;break;
                 case 'login': this.title = '登录';this.isShow=true;break;
                 case 'profile':this.title = "个人中心"; this.isShow = true; break;
