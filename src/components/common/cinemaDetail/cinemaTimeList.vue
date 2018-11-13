@@ -1,26 +1,41 @@
 <template>
-    <div>
+    <div v-if="moviesInfo">
         <div class="show-time-box">
-            <ul class="cinema-time">
-                <li class="time-item">
-                    今天11月11日
-                </li>
-                <li class="time-item">
-                    今天11月11日
+            <ul  class="cinema-time">
+                <li  @click="changeIndex(index)" v-for="(item,index) in moviesInfo.shows" :key="index" class="time-item">
+                    {{item.dateShow}}
                 </li>
             </ul>
         </div>
-        <div class="film-show-time">
+        <div v-if="moviesInfo.shows[activeIndex].plist.length">
+            <div v-for="(item,index) in moviesInfo.shows[activeIndex].plist" :key="index"  class="film-show-time">
+                <div class="cinema-intro">
+                    <em class="intro-top">{{item.tm}}</em>
+                    <em class="intro-bottom">00:44 散场</em>
+                </div>
+                <div class="cinema-intro">
+                    <em class="intro-top lang">{{item.lang}} {{item.tp}}</em>
+                    <em class="intro-bottom">{{item.th}}</em>
+                </div>
+                <div class="price">
+                    <span>￥</span>{{item.vipPrice}}
+                </div>
+                <div class="buy-ticket">
+                    <span>购票</span>
+                </div>
+            </div>
+        </div>
+        <div v-for="(item,index) in moviesInfo.shows[activeIndex].plist" :key="index"  class="film-show-time">
             <div class="cinema-intro">
-                <em class="intro-top">22:50</em>
+                <em class="intro-top">{{item.tm}}</em>
                 <em class="intro-bottom">00:44 散场</em>
             </div>
             <div class="cinema-intro">
-                <em class="intro-top lang">中文 2D</em>
-                <em class="intro-bottom">三号厅</em>
+                <em class="intro-top lang">{{item.lang}} {{item.tp}}</em>
+                <em class="intro-bottom">{{item.th}}</em>
             </div>
             <div class="price">
-                <span>￥</span>49
+                <span>￥</span>{{item.vipPrice}}
             </div>
             <div class="buy-ticket">
                 <span>购票</span>
@@ -31,7 +46,17 @@
 
 <script>
 export default {
-    
+    props:['moviesInfo'],
+    data(){
+        return{
+            activeIndex:0
+        }
+    },
+    methods:{
+        changeIndex(index){
+            this.activeIndex = index
+        }
+    }
 }
 </script>
 

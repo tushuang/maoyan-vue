@@ -15,13 +15,13 @@ module.exports = {
                     '^/my':''
                 }
             },
-            // '/mz': {
-            //     target: 'https://m.maizuo.com/',
-            //     changeOrigin: true,
-            //     pathRewrite: {
-            //       '^/mz': ''
-            //     }
-            // }
+            '/ps': {
+                target: 'http://api.map.baidu.com',
+                changeOrigin: true,
+                pathRewrite: {
+                  '^/ps': ''
+                }
+            }
         }
     },
     chainWebpack (config) {
