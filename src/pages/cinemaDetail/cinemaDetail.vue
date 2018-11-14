@@ -10,7 +10,11 @@
             </span>
         </div>
         <cinema-swiper :movies = movies ></cinema-swiper>
+<<<<<<< HEAD
         <cinema-set-meal :dealList = dealList></cinema-set-meal>
+=======
+        <cinema-set-meal></cinema-set-meal>
+>>>>>>> 73698bf376bd5cfac2294e2f3e3bbd5e9ad61148
     </div>
 </template>
 
