@@ -3,7 +3,7 @@
         <nav class="home-nav">
             <ul>
                 <router-link tag="li" :to="{name:'citys'}" class="home-site">
-                    北京
+                    {{chunks.city.name}}
                     <i class="iconfont icon-jiantou-copy-copy"></i>
                 </router-link>
                 <li class="active-switch">
@@ -26,11 +26,12 @@
 </template>
 
 <script>
-
-
+ 
+import {CHANGE_CITY} from '@/store/chunks/mutation_types'
+import { mapActions, mapState } from 'vuex'
 
 export default {
-    data(){
+    data(){ 
         return {
             infos:[
                 {id:1, path:'/home/MovieOnInfoList',title:'正在热映'},
@@ -46,7 +47,22 @@ export default {
             next()
         })
         
-        this.type = this.$route.path
+        this.type = this.$route.path 
+        // 提交mutation状态去 定位城市 但如果用户已经更改城市 则不必要再去定位
+        if(!localStorage.getItem('city')){
+            this.$store.dispatch('chunks/getCurrentPosition')
+        }else{
+            // 提交mutation状态
+            this.$store.commit({
+                type: 'chunks/' + CHANGE_CITY,
+                cities: JSON.parse(localStorage.cities),
+                city: JSON.parse(localStorage.city)
+            })
+        }
+        
+    },
+    computed:{
+        ...mapState(['chunks'])
     }
 }
 </script>

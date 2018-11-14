@@ -36,7 +36,7 @@ export default {
                 url:'/my/ajax/cinemaList',
                 params:{
                     day: 2018-11-11,
-                    offset: 20,
+                    offset: 0,
                     limit: 20,
                     districtId: -1,
                     lineId: -1,
@@ -46,7 +46,7 @@ export default {
                     areaId: -1,
                     stationId: -1,
                     item: '',
-                    updateShowDay: false,
+                    updateShowDay: true,
                     reqId: 1541901957736,
                     cityId: 1,
                 }

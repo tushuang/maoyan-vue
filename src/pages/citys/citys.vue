@@ -20,9 +20,6 @@ export default {
 </script>
 
 <style lang="scss">
-.citys-warp{
-    height: 100%;
-}
     #citys{
         margin-top:-1.36rem;
         background: #ebebeb;

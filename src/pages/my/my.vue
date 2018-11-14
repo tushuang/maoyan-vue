@@ -13,15 +13,14 @@ export default {
         AppFooter,
         profilePage
     },
+    // beforeRouteEnter
     beforeRouteEnter (to, from, next) {
-        if(localStorage.getItem('userInfo')){
-            console.log('biubiubiu')
+        if(!localStorage.getItem('userInfo')){
             next('/login/account')
         }else{
             next()
         }
-        
-    },
+    }
 }
 </script>
 

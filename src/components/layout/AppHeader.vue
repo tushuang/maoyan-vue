@@ -37,13 +37,18 @@ export default {
         this.$router.beforeEach((to, from, next) => {
             let _to = to || this.$route
             this.changeTitle(_to)
+            if(_to.name == 'citys'){
+                this.headerIsShow = false
+            }else{
+                this.headerIsShow = true
+            }
             next()
         })
         if(this.$route.name == 'citys'){
-            this.headerIsShow = false
-        }else{
-            this.headerIsShow = true
-        }
+                this.headerIsShow = false
+            }else{
+                this.headerIsShow = true
+            }
         this.$bus.$on('changeTitle',()=>{
             this.changeTitle(this.$route)
         })

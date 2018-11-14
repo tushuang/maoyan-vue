@@ -4,8 +4,8 @@
         class="citys-crosswise">
             <p class="crosswise-class">定位城市</p>
             <ul class="crosswise-list">
-                <li  v-for="city in activeCity" :key="city.id" class="crosswise-item">
-                {{city.city}}
+                <li class="crosswise-item">
+                {{activeCity.name}}
                 </li> 
             </ul>    
         </div>
@@ -13,7 +13,9 @@
         class="citys-crosswise">
             <p class="crosswise-class">热门城市</p>
             <ul class="crosswise-list">
-                <li  v-for="city in hotCitys" :key="city.id" class="crosswise-item">
+                <li 
+                @click="changeCurrentCity(city.id,city.city)"
+                v-for="city in hotCitys" :key="city.id" class="crosswise-item">
                 {{city.city}}
                 </li> 
             </ul>    
@@ -24,6 +26,8 @@
 </template>
 
 <script>
+import { CHANGE_CITY } from '@/store/chunks/mutation_types' 
+
 export default {
     components:{
     },
@@ -42,7 +46,28 @@ export default {
                 {id:59,city:'成都'},
                 {id:45,city:'重庆'},
             ],
-            activeCity:[{id:10,city:'上海'}]
+        }
+    },
+    computed:{
+        activeCity(){
+            // 刷新时
+            console.log(JSON.parse(localStorage.getItem('city')))
+            return this.$store.state.chunks.city
+        }
+    },
+    methods:{
+        changeCurrentCity(id,nm){
+            this.$store.commit({
+                type:'chunks/'+ CHANGE_CITY,
+                city:{
+                    id,
+                    name:nm
+                }
+            })
+            console.log(this.$cookies)
+            this.$cookies.set('cityname', this.$store.state.chunks.city.name)
+            
+            this.$router.push({name:'home'})
         }
     }
 }

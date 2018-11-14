@@ -2,41 +2,87 @@
     <div>
         <div class="cinema-swiper">
             <div class="movie-filter"></div>
-            <div class="detail-bg"></div>
+            <div class="detail-bg" :style = "activeBg"></div>
             <swiper class="swiper-contain" :options="swiperOption" ref="mySwiper">
             <!-- slides -->
-                <swiper-slide v-for="i in 10" :key='i' class="swiper-item">
+                <swiper-slide v-for="item in movies" :key='item.id' class="swiper-item">
                    <div class="img-box">
-                       <img width="65" height="95" src="http://p0.meituan.net/148.208/movie/2721b55eac3ca107bad2af0e18592003431446.jpg" alt="">
+                       <img width="65" height="95" :src= 'item.img|handleImg'  alt="">
                    </div>
                    <span class="tarngle"></span>
                 </swiper-slide>
             </swiper>
             
         </div>
-        <div class="film-title">
-            <h2 class="film-name">毒液：致命守护者 <em class="grade">9.4</em> <em class="grade-util">分</em> </h2>
-            <p class="silde-title"> 107分钟 | 动作 | 汤姆·哈迪</p>
+        <div v-if="moviesInfo" class="film-title">
+            <!-- {{activeIndex}} -->
+            <h2 class="film-name">{{moviesInfo.nm}} <em class="grade">{{moviesInfo.sc}}</em> <em class="grade-util">分</em> </h2>
+            <p class="silde-title"> {{moviesInfo.desc}} </p>
         </div>
+        <cinema-time-list :moviesInfo = moviesInfo></cinema-time-list>
     </div>
     
 </template>
 
 <script>
+
+let vm = null
+import cinemaTimeList from '@c/common/cinemaDetail/cinemaTimeList'
 export default {
+    components:{
+        cinemaTimeList
+    },
     data() {
       return {
         swiperOption: {
             slidesPerView : 'auto',
             spaceBetween : 10,
             centeredSlides : true,
-        }
+            on:{
+                slideChangeTransitionEnd:function(){
+                  vm.moviesInfo = vm.movies[this.activeIndex]
+                  vm.bg = vm.handleImg(vm.movies[this.activeIndex].img)
+                }
+            }
+        },
+        bg:'',
+        activeBg:{
+            backgroundImage: 'url(http://p0.meituan.net/148.208/movie/2721b55eac3ca107bad2af0e18592003431446.jpg)'
+        },
+        activeIndex:0,
+        moviesInfo:null,
+        showTime:null
       }
     },
+    methods:{
+        handleImg(imgUrl){
+            let arr = imgUrl.split('/')
+            return 'https://p0.meituan.net/128.180/movie/'+arr[arr.length-1]
+
+        }
+    },
+    props:['movies'],
     computed: {
       swiper() {
         return this.$refs.mySwiper.swiper
       }
+    },
+    mounted(){
+        vm = this
+    },
+    watch:{
+        movies:{
+            handler(){
+                this.moviesInfo = this.movies[0]
+                console.log(this.moviesInfo)
+                vm.bg = vm.handleImg(vm.movies[0].img) 
+            }
+        },
+        bg:{
+            handler(){
+                this.activeBg.backgroundImage = 'url(' + this.bg + ')'
+            }
+        }
     }
 }
 </script>
@@ -48,7 +94,7 @@ export default {
         position: relative;
         overflow: hidden;
         .detail-bg{
-            background: url(http://p0.meituan.net/148.208/movie/2721b55eac3ca107bad2af0e18592003431446.jpg) no-repeat;
+            // background: url(http://p0.meituan.net/148.208/movie/2721b55eac3ca107bad2af0e18592003431446.jpg) no-repeat;
             background-size: cover;
             filter : blur(15px);
             opacity: .55;

@@ -9,32 +9,44 @@
                 <i class="iconfont icon-location"></i>
             </span>
         </div>
-        <cinema-swiper></cinema-swiper>
-        <cinema-time-list></cinema-time-list>
-        <cinema-set-meal></cinema-set-meal>
+        <cinema-swiper :movies = movies ></cinema-swiper>
+        <cinema-set-meal :dealList = dealList></cinema-set-meal>
     </div>
 </template>
 
 <script>
 import cinemaSwiper from '@c/common/cinemaDetail/cinemaSwiper'
-import cinemaTimeList from '@c/common/cinemaDetail/cinemaTimeList'
 import cinemaSetMeal from '@c/common/cinemaDetail/cinemaSetMeal'
 export default {
     components:{
         cinemaSwiper,
-        cinemaTimeList,
         cinemaSetMeal
     },
     data(){
         return{
             site:'',
-            addr:''
+            addr:'',
+            movies:null,
+            dealList:null,
+        }
+    },
+    methods:{
+        async getCinemaDetail(){
+            const data = await this.$http({
+                url:'/my/ajax/cinemaDetail',
+                params:{
+                    cinemaId:this.$route.query.cinemaId
+                }
+            })
+            this.movies = data.showData.movies
+            this.dealList = data.dealList.dealList
         }
     },
     created(){
         this.site = this.$route.query.title
         this.addr = this.$route.query.addr
         this.$bus.$emit('getTitle',this.site)
+        this.getCinemaDetail()
     }
 }
 </script>

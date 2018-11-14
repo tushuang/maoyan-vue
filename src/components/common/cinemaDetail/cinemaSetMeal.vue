@@ -1,32 +1,37 @@
 <template>
-    <div class="set-meal">
-        <p class="title">影院超值套餐</p>
-        <div class="meal-box">
-            <div class="meal-left">
-                <img width="92" height="92" src="http://p0.meituan.net/440.0/movie/1b6fa3a381eb179eb700adbe22311dbe31065.jpg@388w_388h_1e_1c" alt="">
+    <div v-if='dealList'>
+       <div class="set-meal" >
+            <p class="title">影院超值套餐</p>
+            <div class="meal-box" v-for='(item,index) in dealList' :key="index">
+                <div class="meal-left">
+                    <img width="92px" height="92px" :src = "item.imageUrl | handleImg(true)" alt="">
+                </div>
+                <div class="meal-center">
+                    <div>
+                        <span class="tip">双人</span>
+                        {{item.title}}
+                    </div>
+                    <div>
+                        <span class="price">
+                            <span>￥</span>{{item.price}}
+                        </span>
+                        <span class="buy">
+                           <p class="sold">{{item.curNumberDesc}}</p>
+                            <span class="buy-btn">
+                                去购买
+                            </span> 
+                        </span>
+                    </div>  
+                </div>
             </div>
-            <div class="meal-center">
-                <span>
-                    <span class="tip">双人</span>
-                    大爆米花1桶+冷饮2杯
-                </span>
-                <span class="price">
-                    <span>￥</span>48.8
-                </span>
-            </div>
-            <div class="meal-right">
-                <p class="sold">已售323</p>
-                <span class="buy-btn">
-                    去购买
-                </span>
-            </div>
-        </div>
+        </div> 
     </div>
+    
 </template>
 
 <script>
 export default {
-    
+    props:['dealList']
 }
 </script>
 
@@ -49,16 +54,18 @@ export default {
             display: flex;
             justify-content: space-between;
             .meal-left{
-                
+                width:2.453333rem;
+                height: 5.75rem;
             }
             .meal-center{
                 flex-shrink: 1;
                 flex-grow: 1;
+                width: 6.533333rem;
                 margin-left: .266667rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                span{
+                div{
                     font-size: .373333rem;
                     line-height: .48rem;
                     color: #333;
@@ -79,24 +86,23 @@ export default {
                         font-size: .373333rem;
                     }
                 }
-            }
-            .meal-right{
-                font-size: .32rem;
-                color: #999;
-                height: 1.52rem;
-                align-self: bottom;
-                margin-top: 1.333333rem;
-                span{
-                    height: .72rem;
-                    line-height: .746667rem;
+                span.buy{
+                    .buy-btn{
+                        line-height: .746667rem;
+                        font-size: .32rem;
+                        background-color: #f03d37;
+                        color: #fff;
+                        border-radius: .106667rem;
+                        text-align: center;
+                        padding: .133333rem .213333rem;
+                    }
+                    float: right;
                     font-size: .32rem;
-                    background-color: #f03d37;
-                    color: #fff;
-                    border-radius: .106667rem;
-                    text-align: center;
-                    padding: .133333rem .213333rem;
-                
+                    color: #999;
+                    height: 1.52rem;
+                    align-self: bottom;
                 }
+
             }
         }
     }

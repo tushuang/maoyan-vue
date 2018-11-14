@@ -8,8 +8,7 @@ import '@styles/main.scss'
 import '@libs/flexible'
 
 import '@libs'
-import bus from '@utils/emit'
-
+import store from '@/store'
 
 // import router from '@router' 
 import router from './router/index'
@@ -17,6 +16,7 @@ import router from './router/index'
 
 new Vue({
   router,
+  store,
   render: h => h(App)
   // render:(createElement)=>{
   //   return createElement(App)
