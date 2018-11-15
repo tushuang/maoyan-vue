@@ -12,9 +12,6 @@ export default {
     components:{
         AppFooter,
         cinemaList
-    },
-    created(){
-        console.log('11223')
     }
 }
 </script>

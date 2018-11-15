@@ -2,13 +2,13 @@
     <div>
         <div class="top-sticky">
             <div class="search-box">
-                <span class="area">
+                <span class="area"> 
                     北京
                     <i class="iconfont icon-jiantou-copy-copy"></i>
                 </span>
                 <input class="search-input" placeholder="搜影院" type="text">
             </div>
-            <select-info></select-info>
+            <select-info></select-info> 
         </div>  
         <cinema-msg :getCinemaList = 'getCinemaList' :infos = 'infos'></cinema-msg> 
     </div>
@@ -35,7 +35,7 @@ export default {
             this.$http({
                 url:'/my/ajax/cinemaList',
                 params:{
-                    day: 2018-11-11,
+                    day: this.getNewDate(),
                     offset: 0,
                     limit: 20,
                     districtId: -1,
@@ -55,6 +55,13 @@ export default {
             }).catch((err)=>{
                 console.log(err)
             })
+        },
+        getNewDate(){
+            let time = new Date()
+            let m = ~~time.getMonth() + 1
+            let d = time.getDate()
+            console.log(time.getFullYear()+'-' +( m>10?m:'0'+ m) + ('-' + d>10?d:'0'+d))
+            return time.getFullYear()+'-' + (m>10?m:'0'+ m) + '-' + (d>10?d:'0'+d);
         }
     },
     created(){ 

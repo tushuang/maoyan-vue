@@ -99,6 +99,7 @@ export default {
         position:sticky;
         top: 1.333333rem;
         // z-index: 999;
+        z-index: 999;
         height: 2.266667rem;
         background-color: #fff;
         .show-time-box::-webkit-scrollbar {display:none}

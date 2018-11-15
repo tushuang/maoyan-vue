@@ -10,7 +10,7 @@
 import movieDetail from '@c/common/detail/movie-detail'
 import cinemaMsgBox from '@c/layout/cinema-msg-box'
 
-export default {
+export default { 
     components:{
         movieDetail,
         cinemaMsgBox
@@ -19,5 +19,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+    .app-detail{
+        height: 100%;
+    }
 </style>

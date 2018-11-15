@@ -1,20 +1,16 @@
 <template>
-    <div>
+    <div class="cinemaList-wrap">
         <div class="location-site">
             <span class="specific-site">
                 <p class="site-name">{{site}}</p>
                 <p class="specific">{{addr}}</p>
-            </span>
+            </span> 
             <span class="site-icon">
                 <i class="iconfont icon-location"></i>
             </span>
         </div>
         <cinema-swiper :movies = movies ></cinema-swiper>
-<<<<<<< HEAD
         <cinema-set-meal :dealList = dealList></cinema-set-meal>
-=======
-        <cinema-set-meal></cinema-set-meal>
->>>>>>> 73698bf376bd5cfac2294e2f3e3bbd5e9ad61148
     </div>
 </template>
 
