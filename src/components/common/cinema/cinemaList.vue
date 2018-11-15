@@ -6,7 +6,7 @@
                     北京
                     <i class="iconfont icon-jiantou-copy-copy"></i>
                 </span>
-                <input class="search-input" placeholder="搜影院" type="text">
+                <router-link tag = 'input' :to = '{name:"search"}' class="search-input" placeholder="搜影院" type="text" />
             </div>
             <select-info></select-info> 
         </div>  
@@ -60,7 +60,6 @@ export default {
             let time = new Date()
             let m = ~~time.getMonth() + 1
             let d = time.getDate()
-            console.log(time.getFullYear()+'-' +( m>10?m:'0'+ m) + ('-' + d>10?d:'0'+d))
             return time.getFullYear()+'-' + (m>10?m:'0'+ m) + '-' + (d>10?d:'0'+d);
         }
     },

@@ -16,9 +16,9 @@
                     {{info.title}}
                     </router-link>
                 </li>
-                <li class="home-search">
+                <router-link tag='li' :to="'/search'" class="home-search">
                     <i class="iconfont icon-artboard9-copy"></i>
-                </li>
+                </router-link>
             </ul>
         </nav>
     </div>

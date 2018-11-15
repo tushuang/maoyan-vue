@@ -68,6 +68,11 @@ td {
     vertical-align: baseline;
   
 }
+span,p{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
  
 html {
     font-family: 'sans-serif', "Microsoft YaHei", "微软雅黑", "Tahoma", "Helvetica";

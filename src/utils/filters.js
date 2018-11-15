@@ -4,15 +4,12 @@ import Vue from 'vue'
 Vue.filter('handleImg',(imgUrl,deal=false)=>{
     let arr = imgUrl.split('/')
     if(deal){
-        console.log()
         return 'http://p1.meituan.net/440.0/mmdb/'+'9b1b64716b37e3cbe374e0518da4fe6d30720.jpeg@388w_388h_2e'
     }else{
         return 'https://p0.meituan.net/128.180/movie/'+arr[arr.length-1]
     }
     
 })
-
-
 
 Vue.filter('handleDate',(date)=>{
     let arr = date.split('-')
@@ -41,7 +38,6 @@ function isNowDay(d){
     var od=new Date(d);
     od=new Date(od.getFullYear(),od.getMonth(),od.getDate());
     var xc=(od-td)/1000/60/60/24;
-    console.log(xc)
     if(xc==0){
        return 0;
     }else if(xc<2){

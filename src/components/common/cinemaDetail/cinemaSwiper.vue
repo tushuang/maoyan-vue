@@ -74,7 +74,6 @@ export default {
         movies:{
             handler(){
                 this.moviesInfo = this.movies[0]
-                console.log(this.moviesInfo)
                 vm.bg = vm.handleImg(vm.movies[0].img) 
             }
         },

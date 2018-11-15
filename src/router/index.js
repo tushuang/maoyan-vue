@@ -15,6 +15,8 @@ import phoneForm from '@c/common/login-type/phone'
 import notFound from '@pages/notFound/notFound'
 import citysList from '@pages/citys/citys'
 import order from '@pages/order/order'
+import searchComponent from '@pages/search/search'
+
 const routes = [
     { path: '/', redirect: '/home/MovieOnInfoList' }, // 配置重定向
     { 
@@ -36,6 +38,7 @@ const routes = [
     },
     { path:'/cinema', name:'cinema', component: cinemaComponent},
     { path:'/cinemaDetail', name:'cinemaDetail', component: cinemaDetail},
+    { path:'/search',name:'search',component:searchComponent},
     { 
         path:'/detail/:id', 
         name:'detail', 
