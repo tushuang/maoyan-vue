@@ -20,7 +20,7 @@
                 <div class="price">
                     <span>￥</span>{{item.vipPrice}}
                 </div>
-                <div class="buy-ticket">
+                <div @click='()=>buySeats(item)' class="buy-ticket">
                     <span>购票</span>
                 </div>
             </div>
@@ -38,13 +38,16 @@
 
 <script>
 export default {
-    props:['moviesInfo'],
+    props:['moviesInfo','cinema_nm','movies'],
     data(){
         return{
             activeIndex:0
         }
     },
     methods:{
+        buySeats(item){
+          this.$router.push({name:'seats',params:{id:this.moviesInfo.id,title:this.moviesInfo.nm,info:item,cinemaNm:this.cinema_nm,movies:this.movies}})
+        },
         changeIndex(index){
             this.activeIndex = index
         }

@@ -25,14 +25,24 @@
                 <span>在线观影</span> <i class="iconfont icon-arrow-right-copy-copy-copy"></i>
             </li>
             <li><span>优惠券</span> <i class="iconfont icon-arrow-right-copy-copy-copy"></i></li>
-            <li><span>折扣卡</span> <i class="iconfont icon-arrow-right-copy-copy-copy"></i></li>
+            <li @click='loginOut'><span>登出</span> <i class="iconfont icon-arrow-right-copy-copy-copy"></i></li>
         </ul>
     </div>
 </template>
 
 <script>
 export default {
-    
+    data() {
+      return {
+
+      }
+    },
+    methods:{
+      loginOut:function(){
+        localStorage.removeItem('userInfo');
+        this.$router.push('/');
+      }
+    }
 }
 </script>
 

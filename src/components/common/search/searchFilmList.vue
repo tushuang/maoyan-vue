@@ -2,7 +2,7 @@
     <div v-if="filmList" class="search-film-list">
         <p class="type-title"> 电视/电视剧/综艺 </p>
         <ul>
-            <li v-for="item in filmList.list" :key="item.id" class="film-item">
+            <li @click="go(item.id,item.nm)"  v-for="item in filmList.list" :key="item.id" class="film-item">
                 <span class="item-left">
                     <img width="64" height="90" :src="item.img | handleImg" :alt="item.nm">
                 </span>
@@ -18,7 +18,13 @@
 
 <script>
 export default {
-    props:['filmList']
+    props:['filmList'],
+    methods:{
+      go(id,title){
+        // this.$router.push({name:'detail',params:{id,title}})
+        this.$router.push({name:'filmIntro',params:{id,title}})
+      }
+    }
 }
 </script>
 

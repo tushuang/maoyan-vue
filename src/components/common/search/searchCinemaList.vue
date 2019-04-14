@@ -2,7 +2,7 @@
     <div v-if="cinemaList" class="search-cinema-list">
         <p class="type-title"> 影院 </p>
         <ul>
-            <li v-for="item in cinemaList.list" :key="item.id" class="cinema-item">
+            <li @click="go(info.id,info.nm,info.addr)" v-for="item in cinemaList.list" :key="item.id" class="cinema-item">
                 <p class="cinema-name">{{item.nm}} <em class="price">{{item.sellPrice}}<em>元起</em> </em> </p>
                 <span class="cinema-site">
                     <p class="detail-site">{{item.addr}}</p>
@@ -22,7 +22,12 @@
 
 <script>
 export default {
-    props:['cinemaList']
+    props:['cinemaList'],
+    methods:{
+      go(id,title,addr){
+        this.$router.push({path:'/cinemaDetail',query:{cinemaId:id,title:title,addr:addr}})
+      }
+    }
 }
 </script>
 

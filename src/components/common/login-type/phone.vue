@@ -2,18 +2,13 @@
     <div>
         <form class="account-form" @submit.prevent="subMsg" action="">
             <div class="input msg-input">
-                <input class="phone-num" v-model="phoneNum" type="text" placeholder='请输入手机号'>
-                <span @click='sendCode'  class="send-code" :class="isSend?className.code:''">{{(isSend || !addClass)?text:time+'s'}}</span>
+                <input class="phone-num" :style="!isSend?style.verify:{}" v-model="phoneNum" type="text" placeholder='请输入手机号'>
             </div>
             <div class="input password-input">
-                <input type="password" v-model="code" placeholder="请输入短信验证码">
+                <input type="password" v-model="code" placeholder="请输入密码">
             </div>
             <div class="btn-wrap">
-                <button :class="addClass?className.btn:''"> 登录 </button>
-            </div>
-            <div class="tips">
-                <span class="tip-item">立即注册</span>
-                <span class="tip-item">找回密码</span>
+                <button :style="style.btn"> 登录 </button>
             </div>
             <p class="foot">@猫眼电影 客服电话：<span class="number">400-670-5335</span> </p>
         </form>
@@ -21,14 +16,19 @@
 </template>
 
 <script>
+import { Toast } from 'mint-ui';
 export default {
     data(){
         return{
             phoneNum:'13874715311',
             code:'',
-            addClass:false,
-            className:{
-                btn:'btn-active',
+            style:{
+                verify:{
+                  background: "rgba(229, 72, 71,0.2)"
+                },
+                btn:{
+                  background: '#df2d2d'
+                },
                 code:'send-code-active'
             },
             time:60,
@@ -39,72 +39,42 @@ export default {
     },
     methods:{
         subMsg(){
-            if(this.addClass && this.code){
-                if(!this.isFinish) return false
-                this.isFinish = false
-                this.$http({
-                    url: '/mz/v4/api/login',
-                    method: 'POST',
-                    data: {
-                        loginType: 1,
-                        password: this.code,
-                        username: this.phoneNum
-                    }
-                }).then((res)=>{
-                    if(res.status === 0){
-                        localStorage.setItem('userInfo',JSON.stringify(res.data.data)) 
-                    }
-                    this.isFinish = true
-                })
+            if(!this.code){
+              let instance = Toast('请输入密码');
+              return
             }
-        },
-        sendCode(){  // 点击后发送请求
-             if ( this.isSend ) {// 发送验证码
-                // ajax 如过成功
-                if(!this.isFinish) return false
-                this.isFinish = false
-                this.$http({
-                    url: '/mz/v4/api/code',
-                    method: 'POST',
-                    data: {
-                        mobile: this.phoneNum,
-                        type: "2"
-                    }
-                }).then((res)=>{
-                    if(res.status === 0){
-                        this.authCode()
-                        this.isSend = false;
-                    }else{
-                        this.text = '重新发送'
-                    }
-                    this.isFinish = true
-                })
+            if(!this.isSend){
+              let instance = Toast('输入正确格式的手机号');
+              return
             }
-        },
-        authCode(){  // 点击发送按钮后 请求成功才改变时间
-            let timer = setInterval(()=>{
-                this.time--
-                if(this.time === 0){
-                    clearInterval(timer)
-                    this.isSend = true;
-                    this.time = 60
+            if(!this.isFinish) return false
+            this.isFinish = false
+            this.$http({
+                url: '/zq/login',
+                method: 'POST',
+                data: {
+                    password: this.code,
+                    username: this.phoneNum
                 }
-            },1000)
-        }
+            }).then((res)=>{
+                if(res.status){
+                    localStorage.setItem('userInfo',res.userId) 
+                    this.$router.push('/')
+                }else{
+                  let instance = Toast(res.mes);
+                }
+                this.isFinish = true
+            })
+            
+        },
+       
     },
     watch:{
         phoneNum:{ 
             immediate:true,
             handler(){
                 let result = /^1[34578]\d{9}$/.test(this.phoneNum.trim())
-                if(result){
-                    this.addClass = true
-                    this.isSend = true
-                } 
-                else {
-                    this.addClass = false
-                    this.isSend = false
-                }
+                this.isSend = result
             }
         }
     }
@@ -125,7 +95,7 @@ export default {
             border-bottom: 1px solid #e6e6e6;
             background: white;
             .phone-num{
-                width: 6.533333rem;
+                width: 9.466667rem;
             }
             .send-code{
                 display: inline-block;
@@ -171,10 +141,10 @@ export default {
                 color: white;
                 line-height: 1.253333rem;
                 border-radius: .06rem;
-                background: #dcdcdc;
+                // background: #dcdcdc;
             }
             .btn-active{   
-                background: #df2d2d;
+                // background: #df2d2d;
             }
         }
         .tips{

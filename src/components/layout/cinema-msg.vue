@@ -50,7 +50,6 @@ export default {
         getMore(){
             this.getCinemaList()
             // this.allLoaded = false
-            console.log('1')
             // this.$refs.loadmore.onBottomLoaded();
         },
         go(id,title,addr){   // 编程式导航

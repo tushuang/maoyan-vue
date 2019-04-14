@@ -20,7 +20,7 @@ const actions = {
         if(positionCity.data.status === 0){
             let name = positionCity.data.content.address.replace('市','')
             let index = _.findIndex(cities.cts,function(item){
-                return item.nm == '北京'
+                return item.nm == name
             })
             if(index!=-1){
                 var id = cities.cts[index].id
@@ -33,6 +33,21 @@ const actions = {
                 },
                 cities:cities.cts
             })
+        }else{
+          let index = _.findIndex(cities.cts,function(item){
+              return item.nm == '北京'
+          })
+          if(index!=-1){
+              var id = cities.cts[index].id
+          }
+          context.commit({
+              type:CHANGE_CITY,
+              city:{
+                  id,
+                  name:'北京'
+              },
+              cities:cities.cts
+          })
         }
     }
 }

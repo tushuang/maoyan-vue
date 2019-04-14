@@ -29,6 +29,7 @@ export default {
                 case 'login': this.title = '登录';this.isShow=true;break;
                 case 'profile':this.title = "个人中心"; this.isShow = true; break;
                 case 'order':this.title = "我的电影订单"; this.isShow = true; break;
+                case 'seats':this.title = _to.params.cinemaNm; this.isShow = true; break;
                 default: this.title = '猫眼电影';this.isShow=false;
             }
        },

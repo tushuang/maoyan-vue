@@ -22,8 +22,8 @@ export default {
     data(){
         return{
             infos:[
-                {id:1,title:'美团账号登录',path:'/login/account'},
-                {id:2,title:'手机验证登录',path:'/login/phone'}
+                {id:1,title:'注册账号',path:'/login/account'},
+                {id:2,title:'登录',path:'/login/phone'}
             ],
             type:'/login/account',
             isShow:true

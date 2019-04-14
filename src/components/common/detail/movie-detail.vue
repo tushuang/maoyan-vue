@@ -4,7 +4,7 @@
         <div :style = "styleObject" class="detail-bg">
         </div>
            
-            <div class="detail-content">
+            <div   @click="go(info.nm)" class="detail-content">
                 <div class="item-left">
                     <img :src = "info.img | handleImg" alt = "">
                 </div>
@@ -56,6 +56,10 @@ export default {
             let arr = imgUrl.split('/')
             return 'https://p0.meituan.net/128.180/movie/'+arr[arr.length-1]
 
+        },
+        go(nm){
+          console.log('跳转到详情',this.id)
+          this.$router.push({name:'filmIntro',params:{id:this.id,title:nm}})
         }
 
     },

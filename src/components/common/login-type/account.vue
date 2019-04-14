@@ -2,17 +2,13 @@
     <div>
         <form class="account-form" action="" @submit.prevent="subMsg">
             <div class="input msg-input">
-                <input type="text" v-model="msg" placeholder="账户名/手机号/Email">
+                <input type="text" :style="!isSend?style.verify:{}"  v-model="phoneNum" placeholder="手机号">
             </div>
             <div class="input password-input">
                 <input type="password" v-model="password" placeholder="请输入您的密码">
             </div>
             <div class="btn-wrap">
-                <button class="account-login"> 登录 </button>
-            </div>
-            <div class="tips">
-                <span class="tip-item">立即注册</span>
-                <span class="tip-item">找回密码</span>
+                <button :style="style.btn" @click="register" class="account-login"> 注册 </button>
             </div>
             <p class="foot">@猫眼电影 客服电话：<span class="number">400-670-5335</span> </p>
         </form>
@@ -20,16 +16,65 @@
 </template>
 
 <script>
+import { Toast } from 'mint-ui';
 export default {
     data(){
         return{
+            phoneNum:'13874715311',
             msg:'',
-            password:''
+            password:'',
+            isSend:'',
+            style:{
+                verify:{
+                  background: "rgba(229, 72, 71,0.2)"
+                },
+                btn:{
+                  background: '#df2d2d'
+                },
+                code:'send-code-active'
+            },
         }
     },
     methods:{
         subMsg(){
             console.log('ok')
+        },
+        register(){
+          if(!this.isSend){
+            let instance = Toast('输入正确格式的手机号');
+            return
+          }
+          if(!this.password){
+            let instance = Toast('请输入密码');
+            return
+          }
+          this.$http({
+                    url: '/zq/register',
+                    method: 'POST',
+                    data: {
+                        password: this.password,
+                        username: this.phoneNum
+                    }
+                }).then((res)=>{
+                    if(res.status){
+                        this.$router.push('/login/phone')
+                    }else{
+                      let instance = Toast(res.mes);
+                    }
+                })
+        }
+    },
+    watch:{
+        phoneNum:{ 
+            immediate:true,
+            handler(){
+                let result = /^1[34578]\d{9}$/.test(this.phoneNum.trim())
+                if(result){
+                    this.isSend = true
+                } else {
+                    this.isSend = false
+                }
+            }
         }
     }
 }
@@ -71,7 +116,6 @@ export default {
                 width: 9.466667rem;
                 height: 1.253333rem;
                 border: none;
-                background: #df2d2d;
                 text-align: center;
                 font-size: .533333rem;
                 color: white;

@@ -1,36 +1,63 @@
 <template>
     <div class="order-list">
+      <div v-for = '(item,index) in info' >
         <div class="order-title">
             <div>
-                <span>尚美国际影城(零陵店) </span>
+                <span>{{item.cinemaNm}} </span>
                 <i class="iconfont icon-arrow-right-copy-copy-copy"></i>
             </div>
-            <span class="count-down"> 支付余剩时间</span>
-            
+            <span class="count-down"> </span>
         </div>
         <div class="order-detail">
             <div class="detail-left">
-                <img width="57" height="80" src="http://p0.meituan.net/114.160/movie/7b2eaac36faaa57864935e20fde7885a242723.jpg" alt="">
+                <img width="57" height="80" :src="item.imgUrl" alt="">
             </div>
             <div class="detail-center">
-                <h3 class="show-title">昼颜 2张</h3>
-                <p class="show-time">2018-05-18 周五 19:30</p>
-                <p class="seat">四号厅 5排6座 5排7座</p>
+                <h3 class="show-title">{{item.nm}} <span>{{item.seatNum}}</span>张</h3>
+                <p class="show-time">{{item.time}}</p>
+                <p class="seat">
+                <span v-for = 'seat in item.seat'>
+                  {{seat[0]+1}}排{{seat[1]}}座
+                </span>
+                </p>
             </div>
             <div class="detail-right">
-                <span class="pay">付款</span>
+               <!-- <span class="pay">付款</span> -->
             </div>
         </div>
         <div class="total">
-            <span class="price">总价：45.9元</span>
-            <span class="pay-state">未支付</span>
+            <span class="price">总价：<span>45.9</span>元</span>
+            <span class="pay-state">已完成</span>
         </div>
+      </div>
     </div>
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
-    
+    data() {
+      return {
+        info:[]
+      }
+    },
+    created() {
+      let userId = localStorage.getItem('userInfo');
+      this.$http({
+          url: `/zq/order/list/${userId}`,
+          method: 'GET'
+      }).then((res)=>{
+          if(res.status){
+             this.info = res.result;
+          }else{
+            let instance = Toast(res.mes);
+          }
+          this.isFinish = true
+      })
+    },
+    methods: {
+      
+    },
 }
 </script>
 
@@ -42,12 +69,14 @@ export default {
         flex-direction: column;
         font-size: 14px;
         color: #777;
+        // background:#f8f8f8;
         .order-title{
             padding: 0 .4rem;
             height: 1.013333rem;
             line-height: 1.013333rem;
             display: flex;
             justify-content: space-between;
+            border-top:1px solid #eee;
             .count-down{
                 font-size: .32rem;
                 color: #f03d37;
@@ -98,6 +127,7 @@ export default {
             height: 1.013333rem;
             line-height: 1.013333rem;
             display: flex;
+            border-top:1px solid #eee;
             justify-content: space-between;
             .pay-state{
                 color: #000;

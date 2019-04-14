@@ -9,7 +9,7 @@
                 <i class="iconfont icon-location"></i>
             </span>
         </div>
-        <cinema-swiper :movies = movies ></cinema-swiper>
+        <cinema-swiper :cinema_nm=site :movies = movies ></cinema-swiper>
         <cinema-set-meal :dealList = dealList></cinema-set-meal>
     </div>
 </template>

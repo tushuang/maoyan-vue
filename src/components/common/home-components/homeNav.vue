@@ -51,6 +51,7 @@ export default {
         // 提交mutation状态去 定位城市 但如果用户已经更改城市 则不必要再去定位
         if(!localStorage.getItem('city')){
             this.$store.dispatch('chunks/getCurrentPosition')
+            // console.log('activeCitys====>',chunks)
         }else{
             // 提交mutation状态
             this.$store.commit({

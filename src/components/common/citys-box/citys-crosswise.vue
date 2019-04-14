@@ -51,7 +51,7 @@ export default {
     computed:{
         activeCity(){
             // 刷新时
-            console.log(JSON.parse(localStorage.getItem('city')))
+            console.log('activeCity===>',JSON.parse(localStorage.getItem('city')))
             return this.$store.state.chunks.city
         }
     },

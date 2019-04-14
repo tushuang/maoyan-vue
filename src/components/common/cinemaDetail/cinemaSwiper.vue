@@ -19,7 +19,7 @@
             <h2 class="film-name">{{moviesInfo.nm}} <em class="grade">{{moviesInfo.sc}}</em> <em class="grade-util">分</em> </h2>
             <p class="silde-title"> {{moviesInfo.desc}} </p>
         </div>
-        <cinema-time-list :moviesInfo = moviesInfo></cinema-time-list>
+        <cinema-time-list :movies = bg :cinema_nm = cinema_nm :moviesInfo = moviesInfo></cinema-time-list>
     </div>
     
 </template>
@@ -61,7 +61,7 @@ export default {
 
         }
     },
-    props:['movies'],
+    props:['movies','cinema_nm'],
     computed: {
       swiper() {
         return this.$refs.mySwiper.swiper
