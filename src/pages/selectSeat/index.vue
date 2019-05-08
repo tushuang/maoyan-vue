@@ -106,6 +106,7 @@ import { Toast,Actionsheet } from 'mint-ui';
 			}
 		},
     computed:{
+
     },
     created() {
       console.log(this.$route.params)
@@ -131,6 +132,36 @@ import { Toast,Actionsheet } from 'mint-ui';
             this.isFinish = true
         })
     },
+
+    watch:{
+        seatArray:{
+            handler(){
+                let index = 0; 
+                _.some(this.seatArray,(arrItem)=>{
+                  _.some(arrItem,(item)=>{
+                    if(item===1){
+                      index++;
+                    }
+                  })
+                }) 
+                this.price = Math.round(this.$route.params.info.vipPrice)*index;
+                console.log('price===>',this.seatArray,index);
+                if(index!=0){
+                  this.choose = {
+                    style:{background:'#f90'},
+                    text:'确认选座'
+                  }
+                }else{
+                  this.choose = {
+                    style:{background:'#ffddb2'},
+                    text:'请先选座'
+                  }
+                }
+                index = 0;
+            }
+        },
+    },
+
     methods:{
       //支付
       pay:function(){
@@ -160,29 +191,9 @@ import { Toast,Actionsheet } from 'mint-ui';
       },
 			//向前后某个方向进行搜索的函数,参数是起始行，终止行,推荐座位个数
       searchSeatByDirection: function(fromRow,toRow,num){
-        /*
-         * 推荐座位规则
-         * (1)初始状态从座位行数的一半处的后一排的中间开始向左右分别搜索，取离中间最近的，如果满足条件，
-         *    记录下该结果离座位中轴线的距离，后排搜索完成后取距离最小的那个结果座位最终结果，优先向后排进行搜索，
-         *    后排都没有才往前排搜，前排逻辑同上
-         *
-         * (2)只考虑并排且连续的座位，不能不在一排或者一排中间有分隔
-         *
-         * */
-
-        /*
-         * 保存当前方向搜索结果的数组,元素是对象,result是结果数组，offset代表与中轴线的偏移距离
-         * {
-         *   result:Array([x,y])
-         *   offset:Number
-         * }
-         *
-         */
         let currentDirectionSearchResult = [];
-
         let largeRow = fromRow>toRow?fromRow:toRow,
             smallRow = fromRow>toRow?toRow:fromRow;
-
         for(let i=smallRow;i<=largeRow;i++){
           //每一排的搜索,找出该排里中轴线最近的一组座位
           let tempRowResult = [],
@@ -207,7 +218,6 @@ import { Toast,Actionsheet } from 'mint-ui';
             offset:minDistanceToMidLine
           })
         }
-
         //处理后排的搜索结果:找到距离中轴线最短的一个
         //注意这里的逻辑需要区分前后排，对于后排是从前往后，前排则是从后往前找
         let isBackDir = fromRow < toRow;
@@ -229,7 +239,6 @@ import { Toast,Actionsheet } from 'mint-ui';
             }
           })
         }
-
         //直接返回结果
         return finalReuslt
       },
@@ -238,16 +247,23 @@ import { Toast,Actionsheet } from 'mint-ui';
 			//推荐选座,参数是推荐座位数目
       smartChoose: function(num){
         //找到影院座位水平垂直中间位置的后一排
+        console.log('seat===>',num)
         let rowStart = parseInt((this.seatRow-1)/2,10)+1;
         //先从中间排往后排搜索
       	let backResult = this.searchSeatByDirection(rowStart,this.seatRow-1,num);
       	if(backResult.length>0){
+          this.price = Math.round(this.$route.params.info.vipPrice)*num;
       		this.chooseSeat(backResult);
           return
         }
       	//再从中间排往前排搜索
         let forwardResult = this.searchSeatByDirection(rowStart-1,0,num);
         if(forwardResult.length>0) {
+          // this.price = Math.round(this.$route.params.info.vipPrice)*num;
+          // this.choose = {
+          //   style:{background:'#f90'},
+          //   text:'确认选座'
+          // }
           this.chooseSeat(forwardResult);
           return
         }
@@ -312,7 +328,6 @@ import { Toast,Actionsheet } from 'mint-ui';
             }
           }
         }
-        console.log('position===>',position);
         if(_.isEmpty(position)){
            let instance = Toast('请选择电影票');
           return
@@ -330,24 +345,24 @@ import { Toast,Actionsheet } from 'mint-ui';
         if(seatValue===2) return
         //如果是已选座位点击后变未选
         if(seatValue === 1){
-          this.price -= Math.round(this.$route.params.info.vipPrice)
+          // this.price -= Math.round(this.$route.params.info.vipPrice)
           console.log(this.price)
           newArray[row][col]=0
         }else if(seatValue === 0){
-          this.price += Math.round(this.$route.params.info.vipPrice)
+          // this.price += Math.round(this.$route.params.info.vipPrice)
           newArray[row][col]=1
         }
-        if(_.flatten(newArray).includes(1)){
-          this.choose = {
-            style:{background:'#f90'},
-            text:'确认选座'
-          }
-        }else{
-          this.choose = {
-            style:{background:'#ffddb2'},
-            text:'请先选座'
-          }
-        }
+        // if(_.flatten(newArray).includes(1)){
+        //   this.choose = {
+        //     style:{background:'#f90'},
+        //     text:'确认选座'
+        //   }
+        // }else{
+        //   this.choose = {
+        //     style:{background:'#ffddb2'},
+        //     text:'请先选座'
+        //   }
+        // }
         //必须整体更新二维数组，Vue无法检测到数组某一项更新,必须slice复制一个数组才行
         this.seatArray = newArray.slice();
       },
@@ -355,9 +370,9 @@ import { Toast,Actionsheet } from 'mint-ui';
       initSeatArray: function(){
         let seatArray = Array(this.seatRow).fill(0).map(()=>Array(this.seatCol).fill(0));
         this.seatArray = seatArray;
-        console.log(window.getComputedStyle(this.$refs.innerSeatWrapper).width)
+        console.log('width',parseInt(parseInt(window.getComputedStyle(this.$refs.innerSeatWrapper).width,10) / this.seatCol,10))
         this.seatSize = this.$refs.innerSeatWrapper
-                        ? parseInt(parseInt(357,10) / this.seatCol,10)
+                        ? parseInt(parseInt(window.getComputedStyle(this.$refs.innerSeatWrapper).width,10) / this.seatCol,10)-1
                         :0;
         //初始化不是座位的地方
         this.initNonSeatPlace();

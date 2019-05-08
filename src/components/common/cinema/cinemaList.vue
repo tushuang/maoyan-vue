@@ -3,7 +3,7 @@
         <div class="top-sticky">
             <div class="search-box">
                 <span class="area"> 
-                    北京
+                    永州
                     <i class="iconfont icon-jiantou-copy-copy"></i>
                 </span>
                 <router-link tag = 'input' :to = '{name:"search"}' class="search-input" placeholder="搜影院" type="text" />

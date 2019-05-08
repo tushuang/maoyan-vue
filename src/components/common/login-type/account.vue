@@ -52,8 +52,8 @@ export default {
                     url: '/zq/register',
                     method: 'POST',
                     data: {
-                        password: this.password,
-                        username: this.phoneNum
+                        password: this.password+'',
+                        username: this.phoneNum+''
                     }
                 }).then((res)=>{
                     if(res.status){

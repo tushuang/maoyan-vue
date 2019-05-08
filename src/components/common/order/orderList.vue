@@ -10,7 +10,7 @@
         </div>
         <div class="order-detail">
             <div class="detail-left">
-                <img width="57" height="80" :src="item.imgUrl" alt="">
+                <img width="57" height="80" :src="item.imgUrl | handleImg" alt="">
             </div>
             <div class="detail-center">
                 <h3 class="show-title">{{item.nm}} <span>{{item.seatNum}}</span>张</h3>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="total">
-            <span class="price">总价：<span>45.9</span>元</span>
+            <span class="price">总价：<span>{{item.price}}</span>元</span>
             <span class="pay-state">已完成</span>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default {
           method: 'GET'
       }).then((res)=>{
           if(res.status){
-             this.info = res.result;
+             this.info = res.result.reverse();
           }else{
             let instance = Toast(res.mes);
           }

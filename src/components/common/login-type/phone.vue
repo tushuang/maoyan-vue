@@ -53,8 +53,8 @@ export default {
                 url: '/zq/login',
                 method: 'POST',
                 data: {
-                    password: this.code,
-                    username: this.phoneNum
+                    password: this.code+'',
+                    username: this.phoneNum+''
                 }
             }).then((res)=>{
                 if(res.status){
