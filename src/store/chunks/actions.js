@@ -38,7 +38,7 @@ const actions = {
       });
     } else {
       let index = _.findIndex(cities.cts, function(item) {
-        return item.nm == "北京";
+        return item.nm == "永州";
       });
       if (index != -1) {
         var id = cities.cts[index].id;
@@ -47,7 +47,7 @@ const actions = {
         type: CHANGE_CITY,
         city: {
           id,
-          name: "北京"
+          name: "永州"
         },
         cities: cities.cts
       });

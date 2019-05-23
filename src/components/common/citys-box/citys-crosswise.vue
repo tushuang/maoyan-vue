@@ -35,7 +35,7 @@ export default {
         return{
             hotCitys:[
                 {id:10,city:'上海'},
-                {id:1,city:'北京'},
+                {id:1,city:'永州'},
                 {id:20,city:'广州'},
                 {id:30,city:'深圳'},
                 {id:57,city:'武汉'},
