@@ -10,7 +10,7 @@
     "axios": "^0.18.0",
     "better-scroll": "^1.13.2",
     "browser-cookies": "^1.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "mint-ui": "^2.2.13",
     "vue": "^2.5.17",
     "vue-awesome-swiper": "^3.1.3",
