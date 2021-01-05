@@ -7,7 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "better-scroll": "^1.13.2",
     "browser-cookies": "^1.2.0",
     "lodash": "^4.17.11",
